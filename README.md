@@ -14,12 +14,12 @@ Cyrene2008 官方示例插件，版本 1.2.1，已使用 Plugin API 1.2 生命�
 ## 开发
 
 ```bash
-npm install
-npm run validate
-npm run build
+bun install
+bun run validate
+bun run build
 ```
 
-`validate` / `build` 使用 `vendor/` 中随附的 `@starcyrene/cyrene-name-roller` SDK（1.4.0），它与宿主使用同一套声明读取与校验逻辑。
+`validate` / `build` 使用 `vendor/` 中随附的 `@starcyrene/cyrene-name-roller` SDK（1.4.1），它与宿主使用同一套声明读取与校验逻辑。
 
 打包只收录 `scripts/stage-plugin.mjs` 中 `publishFiles` 列出的文件——即双声明文件与宿主引用的载荷（Worker、图标、README）。`scripts/`、CI 工作流、`bun.lock`、`vendor/` 这些开发期内容不会进入 `.cnrp`。新增页面资源时记得同步该清单：漏登记会被校验拦住（清单引用的文件缺失，或页面 HTML 引用了未列入清单的同级资源）。
 
