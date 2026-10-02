@@ -1,7 +1,7 @@
 import {
   definePlugin,
   PluginEvents
-} from '@cyrene2008/cyrene-name-roller/plugin-sdk'
+} from '@starcyrene/cyrene-name-roller/plugin-sdk'
 
 const DEFAULTS = {
   enabled: true,

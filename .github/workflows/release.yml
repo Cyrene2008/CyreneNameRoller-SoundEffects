@@ -28,12 +28,12 @@ jobs:
       - name: Set version from input
         run: echo "RELEASE_VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
 
-      # 验证输入的版本号是否与 manifest.json 一致
+      # 验证输入的版本号是否与 manifest.yml 一致
       - name: Verify tag version
         run: |
-          EXPECTED_VERSION="v$(node -p "require('./manifest.json').version")"
+          EXPECTED_VERSION="v$(node -e "import('./scripts/plugin-cli.mjs').then(async m => process.stdout.write(String((await m.readIdentity()).identity.version)))")"
           if [ "$RELEASE_VERSION" != "$EXPECTED_VERSION" ]; then
-            echo "❌ 版本不匹配！输入的是 $RELEASE_VERSION，但 manifest.json 中是 $EXPECTED_VERSION"
+            echo "❌ 版本不匹配！输入的是 $RELEASE_VERSION，但 manifest.yml 中是 $EXPECTED_VERSION"
             exit 1
           fi
 
