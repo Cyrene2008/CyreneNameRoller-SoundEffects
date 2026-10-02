@@ -10,7 +10,7 @@
     "build": "node scripts/build.mjs"
   },
   "devDependencies": {
-    "@starcyrene/cyrene-name-roller": "file:vendor/cyrene-name-roller-plugin-sdk-1.4.0.tgz"
+    "@starcyrene/cyrene-name-roller": "file:vendor/cyrene-name-roller-plugin-sdk-1.4.1.tgz"
   },
   "engines": {
     "node": ">=20"

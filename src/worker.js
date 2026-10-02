@@ -51,7 +51,8 @@ async function play(kind) {
   if (!settings.enabled) return
   const audio = settings[kind]
   if (!audio?.dataUrl) return
-  await request('audio.play', { source: audio.dataUrl, volume: settings.volume })
+  // 不 await：宿主异步解码播放，插件事件立刻返回
+  request('audio.play', { source: audio.dataUrl, volume: settings.volume })
 }
 
 definePlugin({
@@ -67,10 +68,8 @@ definePlugin({
     }
     const kind = settings.playbackMode === 'each' ? ITEM_EVENT_AUDIO[event] : EVENT_AUDIO[event]
     if (!kind || !settings.enabled || !settings[kind]?.dataUrl) return
-    await play(kind)
-    if (payload?.results?.length || payload?.result) {
-      await writeSettings({ lastPlayedAt: Date.now() })
-    }
+    // 只触发播放，不在每次结果后写盘（整包加密落盘会挤卡收尾动画）
+    play(kind)
   },
 
   async deactivate() {
